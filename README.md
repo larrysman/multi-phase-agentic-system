@@ -1,4 +1,4 @@
-### ================= INSTRUCTION TO ACCESS THE OPEN-SOURCE LANGUAGE MODEL =================== ###
+### INSTRUCTION TO ACCESS THE OPEN-SOURCE LANGUAGE MODEL ###
 You can use any of the available private LLM such as the OPENAI, ANTHROPIC etc but for the purpose of this piece of work and to allow to locally explore the ope-source free LLM, I worked with the OLLAMA LLM.
 
 ```bash
@@ -9,7 +9,7 @@ You can also pull: ollama pull mistral
                    ollama pull qwen2.5
 ```
 
-### ==================== CREATE AND ACTIVATE YOUR VIRTUAL ENVIROMENT ====================== ###
+### CREATE AND ACTIVATE YOUR VIRTUAL ENVIROMENT ###
 Create your local project directory - AI_AGENT and cd into the new directory and create the virtual envronment using:
 ```bash
 $ python -m venv .venv
@@ -17,7 +17,7 @@ Activate the virtual environment
 $ .venv\Scripts\activate
 ```
 
-### ================== CREATE AND INSTALL REQUIREMENTS FILE ================= ###
+### CREATE AND INSTALL REQUIREMENTS FILE ###
 Create the requirements.txt file and insert the all your dependencies such as:
 
 `requirements.txt`
