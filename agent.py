@@ -14,10 +14,11 @@ ollama_llm = ChatOllama(model="llama3.1")
 
 ### ================= RESPONSE STRUCTURE ================= ###
 class ResponseStructure(BaseModel):
-    
+    question: str
     answer: str
+    sources: List[str]
+    tools_used: List[str]
 
-#sources: List[str] #tools_used: List[str] #question: str
 # Defining the Parser for the response structure #
 response_parser = PydanticOutputParser(pydantic_object=ResponseStructure)
 
