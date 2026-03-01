@@ -127,7 +127,47 @@ graph.set_entry_point("model")
 graph.add_edge("model", END)
 
 agent = graph.compile()
+
+This section is constructing a state machine that LangGraph will execute and replaces the old LangChain AgentExecutor.
 ```
+*To understand this, I have explain each of the important parts:*
+- **graph = StateGraph(AgentState):**
+    
+    *This creates a new computational graph whose state is defined by the Python class AgentState in this project and it contains:*
+    - StateGraph is the LangGraph's core engine and it expects a typed dictionary describing what data flows through the graph and for this project, the state contains:
+        - query: the user's input
+        - output: the final structured response.
+    
+    **This means every node in the graph recieves and returns a dictionary with these keys.**
+
+- **graph.add_node("model", model_node):**
+
+    *This adds a node to the graph where `model` is the name of the node and `model_node` is the function that will run when this node is executed.*
+
+    *A node is simply a Python function that takes the current state, performs some computation such as LLM call, tool call, routing, etc. and returns a partial update to the state.*
+
+    **In this project, the function `model_node` reads the `state["query"]`, runs the `prompt -> LLM -> parser chain` and returns `{"output": result}` and this is the `heart of the agent`.**
+
+- **graph.set_entry_point("model"):**
+
+    *This tells the LangGraph to start the agent by running the `model` node first where every graph must have exactly one entry point. In this project, the agent is simple (one-step), the model node is the first and only step.*
+
+- **graph.add_edge("model", END):**
+
+    *This defines the flow of execution and it means after the `model node` finishes, stop the graph and `END` is a special terminal marker provided by LangGraph. For example, if multiple nodes are present such as tools, memory, routing, then it would need to add more edges. But this project is a simple one, so the agent is a single-step agent and so, it ends immediately.*
+
+- **agent = graph.compile():**
+
+    *This compiles the graph into an executable agent, validates the graph, optimizes it, create an object with `.invoke()` and `.stream()` methods.*
+
+    *Then you invoke the agent on the query:*
+
+    `query = input("Welcome! You can ask me anything: ")`
+    
+    `response = agent.invoke({"query": query})`
+
+**The LangGraph will create the initial state: `{"query": query}`, run the `model_node`, update the state with `{"output": result}`, stop at `END` and returns the `final state`. This block is the replacement for the AgentExecutor in LangChain 1.x.**
+
 
 
 
