@@ -9,6 +9,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import PydanticOutputParser
 from langgraph.graph import StateGraph, END
 
+
 ### ================= LLM ================= ###
 ollama_llm = ChatOllama(model="llama3.1")
 
@@ -54,7 +55,7 @@ def model_node(state: AgentState):
     return {"output": result}
 
 
-# ================= BUILD GRAPH ================= #
+### ================= BUILD GRAPH ================= ###
 graph = StateGraph(AgentState)
 graph.add_node("model", model_node)
 graph.set_entry_point("model")
@@ -68,4 +69,6 @@ query = input("Welcome! You can ask me anything: ")
 
 response = agent.invoke({"query": query})
 
-print(response["output"])
+#print(response["output"])
+
+print(response["output"].answer)

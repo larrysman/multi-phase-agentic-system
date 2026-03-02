@@ -169,6 +169,17 @@ This section is constructing a state machine that LangGraph will execute and rep
 **The LangGraph will create the initial state: `{"query": query}`, run the `model_node`, update the state with `{"output": result}`, stop at `END` and returns the `final state`. This block is the replacement for the AgentExecutor in LangChain 1.x.**
 
 
+##### ADDING PREBUILT TOOLS #####
+- Tools are the things that the LLM or agent can use that we can either write ourself or we can bring them in from the LangChain Community Hub.
+
+- In the course of the project, I integrated the multi-phase agents for the web_search_tool using duckduckgo and the customized integrated function using Python.
+
+##### CONTINUOUS WORK #####
+
+- Work in Progress...
+
+**AUTHOR:**
+- **Name:** `Olanrewaju Adegoke`
 
 
 
